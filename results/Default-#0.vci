@@ -1,0 +1,463 @@
+file 23895 1761824114                                           
+version 3
+run Default-0-20251030-17:33:36-15012
+attr configname Default
+attr datetime 20251030-17:33:36
+attr datetimef 20251030-173336
+attr experiment Default
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network vpnblocking.VPNBlockNetwork
+attr processid 15012
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../inet4.5/images
+config description "VPN blocking simulation with default settings"
+config network vpnblocking.VPNBlockNetwork
+config sim-time-limit 100s
+config cmdenv-express-mode true
+config cmdenv-autoflush true
+config **.vector-recording true
+config **.scalar-recording true
+config **.client.numApps 1
+config **.client.app[0].typename VPNTrafficApp
+config **.client.app[0].localPort 5000
+config **.client.app[0].destPort 5000
+config **.client.app[0].destAddresses "\"blockedServer\""
+config **.client.app[0].startTime 1s
+config **.client.app[0].stopTime 90s
+config **.client.app[0].sendInterval exponential(0.5s)
+config **.client.app[0].packetLength 1200B
+config **.client.app[0].simulateIPsec true
+config **.blockedServer.numApps 1
+config **.blockedServer.app[0].typename UdpBasicApp
+config **.blockedServer.app[0].localPort 5000
+config **.client.eth[*].bitrate 100Mbps
+config **.gateway.eth[*].bitrate 100Mbps
+config **.blockedServer.eth[*].bitrate 100Mbps
+
+vector 0 VPNBlockNetwork.client.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 1 VPNBlockNetwork.client.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 2 VPNBlockNetwork.client.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 3 VPNBlockNetwork.client.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 4 VPNBlockNetwork.client.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 5 VPNBlockNetwork.gateway.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 6 VPNBlockNetwork.gateway.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 7 VPNBlockNetwork.gateway.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 8 VPNBlockNetwork.gateway.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 9 VPNBlockNetwork.blockedServer.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 10 VPNBlockNetwork.blockedServer.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 11 VPNBlockNetwork.blockedServer.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 12 VPNBlockNetwork.blockedServer.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 13 VPNBlockNetwork.blockedServer.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 14 VPNBlockNetwork.client.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 15 VPNBlockNetwork.client.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 16 VPNBlockNetwork.client.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 17 VPNBlockNetwork.client.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 18 VPNBlockNetwork.client.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 19 VPNBlockNetwork.client.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 20 VPNBlockNetwork.client.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 21 VPNBlockNetwork.client.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 22 VPNBlockNetwork.client.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 23 VPNBlockNetwork.client.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 24 VPNBlockNetwork.gateway.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 25 VPNBlockNetwork.gateway.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 26 VPNBlockNetwork.gateway.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 27 VPNBlockNetwork.gateway.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 28 VPNBlockNetwork.gateway.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 29 VPNBlockNetwork.gateway.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 30 VPNBlockNetwork.gateway.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 31 VPNBlockNetwork.gateway.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 32 VPNBlockNetwork.gateway.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 33 VPNBlockNetwork.gateway.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 34 VPNBlockNetwork.gateway.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 35 VPNBlockNetwork.gateway.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 36 VPNBlockNetwork.client.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 37 VPNBlockNetwork.client.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 38 VPNBlockNetwork.client.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 39 VPNBlockNetwork.gateway.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 40 VPNBlockNetwork.gateway.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 41 VPNBlockNetwork.gateway.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 42 VPNBlockNetwork.gateway.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 43 VPNBlockNetwork.gateway.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 44 VPNBlockNetwork.gateway.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 45 VPNBlockNetwork.gateway.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 46 VPNBlockNetwork.gateway.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 47 VPNBlockNetwork.blockedServer.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 48 VPNBlockNetwork.blockedServer.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 49 VPNBlockNetwork.blockedServer.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 50 VPNBlockNetwork.blockedServer.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 51 VPNBlockNetwork.blockedServer.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 52 VPNBlockNetwork.blockedServer.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 53 VPNBlockNetwork.blockedServer.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 54 VPNBlockNetwork.blockedServer.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 55 VPNBlockNetwork.blockedServer.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 56 VPNBlockNetwork.blockedServer.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 57 VPNBlockNetwork.blockedServer.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 58 VPNBlockNetwork.blockedServer.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 59 VPNBlockNetwork.gateway.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 60 VPNBlockNetwork.gateway.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 61 VPNBlockNetwork.blockedServer.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+0	16689 120 0 108 0 1.795874504566 9 0 0 0 0
+1	16809 120 0 108 0 1.795874504566 9 0 0 0 0
+2	16929 9 0 0 0 0 1 0 0 0 0
+3	16938 9 0 0 0 0 1 0 0 0 0
+4	16947 9 0 0 0 0 1 0 0 0 0
+5	16956 130 0 130 0 1.796082004566 9 0 0 0 0
+6	17086 130 0 130 0 1.796082004566 9 0 0 0 0
+7	17216 130 0 114 0 1.795974924566 9 0 0 0 0
+8	17346 130 0 114 0 1.795974924566 9 0 0 0 0
+9	17476 128 0 123 0 1.796075344566 9 0 0 0 0
+10	17604 137 0 123 0 1.796075344566 9 0 0 0 0
+11	17741 10 0 0 0 0 1 0 0 0 0
+12	17751 79 0 120 0 1.796075344566 4 0 3 6 14
+13	17830 10 0 0 0 0 1 0 0 0 0
+14	17840 68 5 105 1 1.795874504566 3 1208 1208 3624 4377792
+15	17908 11 6 6 1 1 1 28 28 28 784
+16	17919 89 7 107 1 1.795874504566 4 28 1228 3712 4524736
+17	18008 90 8 108 1 1.795874504566 4 368 9968 30272 298218496
+18	18098 222 8 108 0.1 1.7 17 0 103360 203040 20619392000
+19	18320 79 8 108 1 1.795874504566 4 0 0 0 0
+20	18399 90 8 108 1 1.795874504566 4 368 9968 30272 298218496
+21	18489 222 8 108 0.1 1.7 17 0 103360 203040 20619392000
+22	18711 89 8 108 1 1.795874504566 4 46 1246 3784 4659664
+23	18800 98 9 109 1.00000576 1.795974824566 4 64 1246 3802 4661644
+24	18898 99 10 110 1.00000586 1.795974924566 4 64 1246 3802 4661644
+25	18997 99 10 110 1.00000586 1.795974924566 4 64 1246 3802 4661644
+26	19096 192 11 127 1.00000586 1.796082004566 8 46 1228 3944 4537592
+27	19288 21 12 12 1.00000586 1.00000586 1 28 28 28 784
+28	19309 192 13 129 1.00000586 1.796082004566 8 28 1228 3908 4534928
+29	19501 97 14 130 1.00000586 1.796082004566 4 368 592 2144 1186816
+30	19598 229 14 130 0.1 1.7 17 0 9600 15520 127206400
+31	19827 89 14 130 1.00000586 1.796082004566 4 0 0 0 0
+32	19916 97 14 130 1.00000586 1.796082004566 4 368 592 2144 1186816
+33	20013 229 14 130 0.1 1.7 17 0 9600 15520 127206400
+34	20242 93 14 130 1.00000586 1.796082004566 4 46 74 268 18544
+35	20335 66 16 96 1.00001162 1.398151312283 3 64 74 212 15048
+36	20401 66 17 97 1.00001172 1.398151412283 3 64 74 212 15048
+37	20467 66 17 97 1.00001172 1.398151412283 3 64 74 212 15048
+38	20533 66 18 98 1.00001172 1.398151412283 3 46 56 158 8388
+39	20599 21 26 26 1.00011214 1.00011214 1 28 28 28 784
+40	20620 100 28 114 1.00011214 1.795974924566 4 368 9968 30272 298218496
+41	20720 232 28 114 0.1 1.7 17 0 103360 203040 20619392000
+42	20952 89 28 114 1.00011214 1.795974924566 4 0 0 0 0
+43	21041 100 28 114 1.00011214 1.795974924566 4 368 9968 30272 298218496
+44	21141 232 28 114 0.1 1.7 17 0 103360 203040 20619392000
+45	21373 99 28 114 1.00011214 1.795974924566 4 46 1246 3784 4659664
+46	21472 98 30 116 1.0001179 1.796075244566 4 64 1246 3802 4661644
+47	21570 97 31 117 1.000118 1.796075344566 4 64 1246 3802 4661644
+48	21667 97 31 117 1.000118 1.796075344566 4 64 1246 3802 4661644
+49	21764 97 32 118 1.000118 1.796075344566 4 46 1228 3730 4526068
+50	21861 19 33 33 1.000118 1.000118 1 28 28 28 784
+51	21880 91 34 122 1.000118 1.796075344566 4 28 56 196 10192
+52	21971 95 35 123 1.000118 1.796075344566 4 368 592 2144 1186816
+53	22066 229 35 123 0.1 1.7 17 0 9600 15520 127206400
+54	22295 87 35 123 1.000118 1.796075344566 4 0 0 0 0
+55	22382 95 35 123 1.000118 1.796075344566 4 368 592 2144 1186816
+56	22477 229 35 123 0.1 1.7 17 0 9600 15520 127206400
+57	22706 91 35 123 1.000118 1.796075344566 4 46 74 268 18544
+58	22797 93 37 125 1.00012376 1.796081904566 4 64 74 286 20524
+59	22890 93 38 126 1.00012386 1.796082004566 4 64 74 286 20524
+60	22983 93 38 126 1.00012386 1.796082004566 4 64 74 286 20524
+61	23076 78 48 120 1.00022428 1.796075344566 3 1208 1208 3624 4377792
+vector 62 VPNBlockNetwork.blockedServer.app[0] throughput:vector ETV
+attr recordingmode vector
+attr source throughput(packetReceived)
+attr title throughput
+attr unit bps
+18	23329 38 131 131 1.79608332207 1.79608332207 1 103743.29056543 103743.29056543 103743.29056543 10762670337.344
+21	23367 38 131 131 1.79608332207 1.79608332207 1 103743.29056543 103743.29056543 103743.29056543 10762670337.344
+30	23405 38 131 131 1.79608332207 1.79608332207 1 6161.3190223451 6161.3190223451 6161.3190223451 37961852.095111
+33	23443 38 131 131 1.79608332207 1.79608332207 1 6161.3190223451 6161.3190223451 6161.3190223451 37961852.095111
+41	23481 38 131 131 1.79608332207 1.79608332207 1 103743.29056543 103743.29056543 103743.29056543 10762670337.344
+44	23519 38 131 131 1.79608332207 1.79608332207 1 103743.29056543 103743.29056543 103743.29056543 10762670337.344
+53	23557 38 131 131 1.79608332207 1.79608332207 1 6161.3190223451 6161.3190223451 6161.3190223451 37961852.095111
+56	23595 38 131 131 1.79608332207 1.79608332207 1 6161.3190223451 6161.3190223451 6161.3190223451 37961852.095111
+62	23633 260 131 131 0.1 1.79608332207 18 0 0 0 0
+
