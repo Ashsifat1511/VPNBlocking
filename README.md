@@ -118,7 +118,7 @@ make MODE=release
 
 ```bash
 cd omnetpp-6.0.3/samples
-git clone <your-repo-url> VPNBlocking
+git clone https://github.com/Ashsifat1511/VPNBlocking.git
 cd VPNBlocking
 
 # Generate Makefile
@@ -305,7 +305,7 @@ Contributions are welcome! Please follow these guidelines:
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Ashsifat1511/VPNBlocking.git
 cd VPNBlocking
 
 # Create development branch
@@ -325,7 +325,7 @@ This project is licensed under the Academic Public License - see the [LICENSE](L
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+- **Md Ashrarul Haque Sifat**  - [Ashsifat1511](https://github.com/Ashsifat1511)
 
 ## 🙏 Acknowledgments
 
@@ -336,8 +336,8 @@ This project is licensed under the Academic Public License - see the [LICENSE](L
 ## 📧 Contact
 
 For questions or support, please open an issue on GitHub or contact:
-- Email: your.email@example.com
-- GitHub: [@yourusername](https://github.com/yourusername)
+- Email: sifatashrarul@gmail.com
+- GitHub: [@Ashsifat1511](https://github.com/Ashsifat1511)
 
 ## 📚 References
 
